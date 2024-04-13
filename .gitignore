@@ -1,0 +1,12 @@
+.venv/
+data/
+runs/
+.idea/
+__pycache__/
+modelview.py
+output_image.png
+RoadSegNet.gv
+RoadSegNet.gv.png
+RoadSegNet.png
+RoadSegNet.png.png
+testinstall.py
