@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import torch
 from matplotlib import pyplot as plt
-from speed.speed import C9H13N
+from speed.doublescuffedspeed import C9H13N
 import torchvision.transforms.functional as TF
 from torchvision.io import read_image
 
@@ -14,7 +14,7 @@ model.eval()
 
 # Load the image
 #image_path = 'data/image_2/110.png'
-image_path = 'data/image_2/120.png'
+image_path = 'img.jpg'
 image = cv2.imread(image_path)
 
 input_image = read_image(image_path)
@@ -40,4 +40,5 @@ result = cv2.addWeighted(image, 1, mask, 0.5, 0)  # Apply the mask with 50% tran
 
 # Display the result
 plt.imshow(cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
+cv2.imwrite("image.png", result)
 plt.show()

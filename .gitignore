@@ -10,3 +10,8 @@ RoadSegNet.gv.png
 RoadSegNet.png
 RoadSegNet.png.png
 testinstall.py
+evaluate_and_save.py
+image.png
+bad_evals/
+analyze_parameters.py
+gif_slides.py
