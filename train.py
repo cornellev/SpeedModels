@@ -2,7 +2,7 @@ import os
 from torch.utils.tensorboard import SummaryWriter
 import torch
 import torch.nn.functional as F
-from speed.speed import C9H13N
+from speed.triplescuffedspeed import C9H13N
 from kittiset import KittiTraining
 
 def train_one_epoch(model, dataloader, optimizer, device):
@@ -14,8 +14,8 @@ def train_one_epoch(model, dataloader, optimizer, device):
         optimizer.zero_grad()
         outputs = model(images)
         labels = labels.long()
-        weight = torch.tensor([2, 1], dtype=torch.float).to(device)
-        loss = F.cross_entropy(outputs, labels, weight=weight)
+        #weight = torch.tensor([2, 1], dtype=torch.float).to(device)
+        loss = F.cross_entropy(outputs, labels)
         #loss = weighted_bce_loss(outputs, labels)
         loss.backward()
         optimizer.step()
@@ -63,7 +63,7 @@ def train_model(epochs, model, training_loader, optimizer, device, resume_path=N
         # Save the model if it has a better performance or every 10 epochs
         if loss < best_loss:
             best_loss = loss
-            save_model(model, optimizer, epoch, loss, 'models/best_model.pth')
+            save_model(model, optimizer, epoch, loss, 'models/triplescuffed/best_model.pth')
             print("Saved new best model")
 
         if epoch % 10 == 0:
@@ -80,8 +80,8 @@ training_set = KittiTraining()
 training_loader = torch.utils.data.DataLoader(training_set, batch_size=32, shuffle=True)
 
 model = C9H13N()
-optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
+optimizer = torch.optim.Adam(model.parameters(), lr=2e-4)
 #optimizer = torch.optim.SGD(model.parameters(), lr=3e-4, momentum=0.9, weight_decay=0.0005)
 
 resume_path = None  # e.g., './models/first_try.pth'
-train_model(2000, model, training_loader, optimizer, device, resume_path)
+train_model(1000, model, training_loader, optimizer, device, resume_path)

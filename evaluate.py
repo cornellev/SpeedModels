@@ -2,13 +2,13 @@ import os
 from time import perf_counter
 import numpy as np
 import torch
-from speed.speed import C9H13N
+from speed.triplescuffedspeed import C9H13N
 import torchvision.transforms.functional as TF
 from torchvision.io import read_image
 
 # Misc
-model_path = 'models/model_epoch_310.pth'
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+model_path = 'models/triplescuffed/best_model.pth'
+device = torch.device('cuda')
 
 
 #load the model

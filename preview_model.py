@@ -2,19 +2,19 @@ import cv2
 import numpy as np
 import torch
 from matplotlib import pyplot as plt
-from speed.doublescuffedspeed import C9H13N
+from speed.triplescuffedspeed import C9H13N
 import torchvision.transforms.functional as TF
 from torchvision.io import read_image
 
 
 # Load the model
 model = C9H13N()
-model.load_state_dict(torch.load('models/doublescuffed/best_model.pth')['model_state_dict'])
+model.load_state_dict(torch.load('models/triplescuffed/best_model.pth')['model_state_dict'])
 model.eval()
 
 # Load the image
-#image_path = 'data/image_2/110.png'
-image_path = 'img.jpg'
+image_path = 'data/image_2/140.png'
+#image_path = 'img.jpg'
 image = cv2.imread(image_path)
 
 input_image = read_image(image_path)

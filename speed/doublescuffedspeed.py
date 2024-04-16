@@ -56,7 +56,7 @@ class C9H13N(nn.Module):
         nt = self.narrowest(x)
         n = self.narrow(x)
         w = self.wide(x)
-        wt = self.widest(w)
+        wt = self.widest(w) #HUGE TYPO AHHHHHHHHHHHHHHHHHHHH
         x = torch.cat((nt, n, w, wt), dim=1)
         x = self.smash2(x)
         x = self.bnrelu_ASPP2(x)
