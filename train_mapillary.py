@@ -1,14 +1,17 @@
 import os
+from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 import torch
 import torch.nn.functional as F
-from speed.triplescuffedspeed import C9H13N
-from kittiset import KittiTraining
+from speed.quadruplesfaisduysd import C9H13N
+from mapillaryset import MapillaryTraining
+
+BATCH_SIZE = 16
 
 def train_one_epoch(model, dataloader, optimizer, device):
     model.train()
     running_loss = 0.0
-    for images, labels in dataloader:
+    for images, labels in tqdm(dataloader):
         images, labels = images.to(device), labels.to(device)
 
         optimizer.zero_grad()
@@ -21,8 +24,9 @@ def train_one_epoch(model, dataloader, optimizer, device):
         optimizer.step()
 
         running_loss += loss.item()
+    
 
-    return running_loss / len(dataloader)
+    return running_loss / (len(dataloader) // BATCH_SIZE)
 
 
 def save_model(model, optimizer, epoch, loss, path ):
@@ -76,12 +80,12 @@ def train_model(epochs, model, training_loader, optimizer, device, resume_path=N
 
 device = torch.device("cuda")
 
-training_set = KittiTraining()
-training_loader = torch.utils.data.DataLoader(training_set, batch_size=32, shuffle=True)
+training_set = MapillaryTraining()
+training_loader = torch.utils.data.DataLoader(training_set, batch_size=BATCH_SIZE, shuffle=True)
 
 model = C9H13N()
 optimizer = torch.optim.Adam(model.parameters(), lr=2e-4)
 #optimizer = torch.optim.SGD(model.parameters(), lr=3e-4, momentum=0.9, weight_decay=0.0005)
 
 resume_path = None  # e.g., './models/first_try.pth'
-train_model(1000, model, training_loader, optimizer, device, resume_path)
+train_model(20, model, training_loader, optimizer, device, resume_path)

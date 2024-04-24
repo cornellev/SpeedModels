@@ -9,8 +9,8 @@ from torch.utils.data import Dataset
 
 class KittiTraining(Dataset):
     def __init__(self):
-        self.img_dir = 'data/image_2'
-        self.label_dir = 'data/gt_image_2'
+        self.img_dir = 'data/kitti/training/image_2'
+        self.label_dir = 'data/kitti/training/gt_image_2'
         self.imgs = os.listdir(self.img_dir)  # assuming that the images and labels have same names in their folders
 
     def __len__(self):
